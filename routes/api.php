@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AlerteController;
+use App\Http\Controllers\AnonceController;
+use App\Http\Controllers\GenerateQRCode;
 use App\Http\Controllers\TrajetController;
 
 /*
@@ -21,20 +25,36 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
-], function ($router) {
-
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
-
+], function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::post('/me', [AuthController::class, 'me']);
 });
 
-//Lister les trajets
-Route::get('/trajets', '\App\Http\Controllers\TrajetController@index');
-//Detail d'un trajet
-Route::get('/trajet/read/{id}', '\App\Http\Controllers\TrajetController@show');
-//Supprimer un trajet
-Route::delete('/trajet/delete/{id}', '\App\Http\Controllers\TrajetController@destroy');
 
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'alerte',
+], function () {
+    Route::get('/all', [AlerteController::class, 'index']);
+    Route::post('/add', [AlerteController::class, 'store']);
+    Route::get('/show/{alerte}', [AlerteController::class, 'show']);
+    Route::put('/update/{alerte}', [AlerteController::class, 'update']);
+    Route::delete('/delete/{alerte}', [AlerteController::class, 'destroy']);
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'anonce',
+], function () {
+    Route::get('/all', [AnonceController::class, 'index']);
+    Route::post('/add', [AnonceController::class, 'store']);
+    Route::get('/show/{anonce}', [AnonceController::class, 'show']);
+    Route::put('/update/{anonce}', [AnonceController::class, 'update']);
+    Route::delete('/delete/{anonce}', [AnonceController::class, 'destroy']);
+});
+
+
+Route::get('/qrcode', [GenerateQRCode::class, 'generate']);

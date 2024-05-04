@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->enum('type',['Standard','Exclusif','Abonnement']);
             $table->enum('tarifs',['500','1000','1500','25OO','3500']);
-            $table->enum('zone',['zone1','zone2','zone3'])->default('zone1');
+            $table->enum('classe',['Premiere Classe','Deuxième Classe']);
+            $table->enum('zone',['Zone 1','Zone 2', 'Zone 3']);
             $table->timestamps();
         });
     }

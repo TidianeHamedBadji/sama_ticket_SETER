@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
 
 class StoreAlerteRequest extends FormRequest
 {
@@ -11,7 +14,7 @@ class StoreAlerteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +25,20 @@ class StoreAlerteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'objet' => 'required|string|max:50',
+            'description' => 'required|string|min:10|max:500',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'status_code' => 422,
+            'error' => true,
+            'message' => 'erreur de validation',
+            'errorList' => $validator->errors()
+        ]));
     }
 }

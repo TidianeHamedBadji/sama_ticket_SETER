@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('telephone');
             $table->boolean('estActived')->default(1);
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

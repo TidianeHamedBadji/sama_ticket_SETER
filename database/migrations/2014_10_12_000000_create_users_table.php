@@ -23,9 +23,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('photo_profile')->nullable();
-            $table->unsignedBigInteger('roles_id');
+            $table->unsignedBigInteger('roles_id')->nullable();
             $table->foreign('roles_id')->references('id')->on('roles')->onDelete('cascade');
-
         });
     }
 

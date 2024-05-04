@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreTicketRequest extends FormRequest
 {
@@ -27,5 +29,16 @@ class StoreTicketRequest extends FormRequest
             'gares_arriver' => 'required|exists:gares,id',
             'trajets_id' => 'required|exists:trajets,id',
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'status_code' => 422,
+            'error' => true,
+            'message' => 'erreur de validation',
+            'errorList' => $validator->errors()
+        ]));
     }
 }

@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('forfaits', function (Blueprint $table) {
+        Schema::create('alertes', function (Blueprint $table) {
             $table->id();
-            $table->enum('type',['Standard','Exclusif','Abonnement']);
-            $table->enum('tarifs',['500','1000','1500','25OO','3500']);
-            $table->enum('zone',['zone1','zone2','zone3'])->default('zone1');
+            $table->string('images');
+            $table->string('objet');
+            $table->text('description');
+            $table->unsignedBigInteger('users_id');
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('forfaits');
+        Schema::dropIfExists('alertes');
     }
 };

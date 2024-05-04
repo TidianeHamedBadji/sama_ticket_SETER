@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('forfaits', function (Blueprint $table) {
+        Schema::create('boutiques', function (Blueprint $table) {
             $table->id();
-            $table->enum('type',['Standard','Exclusif','Abonnement']);
-            $table->enum('tarifs',['500','1000','1500','25OO','3500']);
-            $table->enum('zone',['zone1','zone2','zone3'])->default('zone1');
+            $table->string('titre');
+            $table->text('description');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('forfaits');
+        Schema::dropIfExists('boutiques');
     }
 };

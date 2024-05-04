@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('trajets', function (Blueprint $table) {
             $table->id();
+            $table->enum('lieu_depart',['Dakar','Colobane','Dalifort','Maristes','Beaux_maraicheres','Pikine', 'Thiaroye', 'Yembeul', 'Keur_mbaye_fall', 'PNR', 'Rufisque', 'Bargny', 'Diamniadio', 'Sébikhotane', 'Diass'])->default('Dakar');
+            $table->enum('lieu_arrive',['Dakar','Colobane','Dalifort','Maristes','Beaux_maraicheres','Pikine', 'Thiaroye', 'Yembeul', 'Keur_mbaye_fall', 'PNR', 'Rufisque', 'Bargny', 'Diamniadio', 'Sébikhotane', 'Diass'])->default('Dakar');
+            $table->enum('etat',['Ouvert','Fermé'])->default('Ouvert');
+            $table->dateTime('duree');
+            $table->dateTime('temps_mort');
+            $table->float('distance');
             $table->timestamps();
         });
     }

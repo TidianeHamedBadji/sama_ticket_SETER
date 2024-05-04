@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('gares', function (Blueprint $table) {
             $table->id();
+            $table->string('localite');
+            $table->string('images');
+            $table->string('nom');
+            $table->integer('nombres_train');
+            $table->boolean('parking')->default(1);
+            $table->enum('etat',['Ouverte','Fermé']);
+            $table->enum('voie',['voie1','voie2']);
+            $table->integer('heure_ouverture');
+            $table->integer('heure_fermuture');
+            $table->unsignedBigInteger('boutiques_id');
+            $table->foreign('boutiques_id')->references('id')->on('boutiques')->onDelete('cascade');
             $table->timestamps();
         });
     }

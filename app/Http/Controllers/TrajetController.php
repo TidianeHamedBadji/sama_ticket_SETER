@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Trajet;
-use App\Http\Requests\StoreTrajetRequest;
-use App\Http\Requests\UpdateTrajetRequest;
 
 class TrajetController extends Controller
 {
@@ -13,54 +11,94 @@ class TrajetController extends Controller
      */
     public function index()
     {
-        //
+        // Récupère tous les trajets en triant par la durée en ordre croissant
+        $trajets = Trajet::all();
+
+        return response()->json([
+            'trajets' => $trajets
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+//     public function index()
+// {
+//     $trajets = Trajet::select([
+//         'lieu_depart',
+//         'lieu_arrive',
+//         'etat',
+//         'heure_depart',
+//         'heure_arrive',
+//         \DB::raw("TIMESTAMPDIFF(MINUTE, heure_depart, heure_arrive) AS duree_minutes")  // Calcule la durée en minutes
+//         ])
+//     ->get();
+
+//     return response()->json([
+//         'trajets' => $trajets
+//     ]);
+// }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTrajetRequest $request)
-    {
-        //
-    }
+    // public function store(StoreTrRequest $request)
+    // {
+    //     //
+    // }
 
     /**
      * Display the specified resource.
      */
-    public function show(Trajet $trajet)
+    public function show(string $id)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Trajet $trajet)
-    {
-        //
-    }
+        $trajet = Trajet::find($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateTrajetRequest $request, Trajet $trajet)
-    {
-        //
+        if ($trajet){
+
+            return response()->json([
+                'Message' => 'Trajet trouvé.',
+                'trajet' => $trajet
+            ], 200);
+
+        } else {
+
+            return response([
+
+                'Message' => 'Nous n\'avons pas trouvé le trajet .',
+
+            ], 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Trajet $trajet)
+    public function destroy(string $id )
     {
-        //
+        $trajet = Trajet::find($id);
+
+        if($trajet){
+
+            $trajet->delete();
+
+            return response()->json([
+
+                'Message' => 'trajet  supprimé avec  success.',
+
+            ], 200);
+
+        }else {
+
+            return response([
+
+                'Message' => 'Nous n\'avons pas trouvé le trajet.',
+
+            ], 500);
+        }
+
+    }
+
+    public function dureeTrajet(){
+
+
     }
 }

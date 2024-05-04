@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TrajetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,11 @@ Route::group([
     Route::post('me', 'AuthController@me');
 
 });
+
+//Lister les trajets
+Route::get('/trajets', '\App\Http\Controllers\TrajetController@index');
+//Detail d'un trajet
+Route::get('/trajet/read/{id}', '\App\Http\Controllers\TrajetController@show');
+//Supprimer un trajet
+Route::delete('/trajet/delete/{id}', '\App\Http\Controllers\TrajetController@destroy');
+

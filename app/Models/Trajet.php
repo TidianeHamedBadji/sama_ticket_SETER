@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Trajet extends Model
 {
@@ -14,6 +15,12 @@ class Trajet extends Model
          'etat',
          'duree',
          'temps_mort',
-        'distance'
+        'heure_depart',
+        'heure_arrive'
     ];
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 }

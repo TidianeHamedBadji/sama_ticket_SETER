@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AlerteController;
 use App\Http\Controllers\AnonceController;
+use App\Http\Controllers\GenerateQRCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +54,6 @@ Route::group([
     Route::put('/update/{anonce}', [AnonceController::class, 'update']);
     Route::delete('/delete/{anonce}', [AnonceController::class, 'destroy']);
 });
+
+
+Route::get('/qrcode', [GenerateQRCode::class, 'generate']);

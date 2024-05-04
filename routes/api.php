@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AlerteController;
+use App\Http\Controllers\AnonceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +29,27 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::post('/me', [AuthController::class, 'me']);
+});
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'alerte',
+], function () {
+    Route::get('/all', [AlerteController::class, 'index']);
+    Route::post('/add', [AlerteController::class, 'store']);
+    Route::get('/show/{alerte}', [AlerteController::class, 'show']);
+    Route::put('/update/{alerte}', [AlerteController::class, 'update']);
+    Route::delete('/delete/{alerte}', [AlerteController::class, 'destroy']);
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'anonce',
+], function () {
+    Route::get('/all', [AnonceController::class, 'index']);
+    Route::post('/add', [AnonceController::class, 'store']);
+    Route::get('/show/{anonce}', [AnonceController::class, 'show']);
+    Route::put('/update/{anonce}', [AnonceController::class, 'update']);
+    Route::delete('/delete/{anonce}', [AnonceController::class, 'destroy']);
 });

@@ -15,13 +15,15 @@ return new class extends Migration
             $table->id();
             $table->date('date_achat');
             $table->date('date_expiration');
-            $table->enum('statut',['Disponible','Expiré','Utilisé'])->default('Disponible');
+            $table->enum('statut', ['Disponible', 'Expiré', 'Utilisé'])->default('Disponible');
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('forfaits_id');
             $table->foreign('forfaits_id')->references('id')->on('forfaits')->onDelete('cascade');
-            $table->unsignedBigInteger('gares_id');
-            $table->foreign('gares_id')->references('id')->on('gares')->onDelete('cascade');
+            $table->unsignedBigInteger('gares_depart');
+            $table->foreign('gares_depart')->references('id')->on('gares')->onDelete('cascade');
+            $table->unsignedBigInteger('gares_arriver');
+            $table->foreign('gares_arriver')->references('id')->on('gares')->onDelete('cascade');
             $table->unsignedBigInteger('trajets_id');
             $table->foreign('trajets_id')->references('id')->on('trajets')->onDelete('cascade');
             $table->timestamps();

@@ -7,7 +7,7 @@ use App\Http\Controllers\AlerteController;
 use App\Http\Controllers\AnonceController;
 use App\Http\Controllers\GareController;
 use App\Http\Controllers\GenerateQRCode;
-use App\Http\Controllers\TrajetController;
+use App\Http\Controllers\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,5 +67,12 @@ Route::group([
     Route::delete('/delete/{gare}', [GareController::class, 'destroy']);
 });
 
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'tecket',
+], function () {
+    Route::get('/historique', [TicketController::class, 'index']);
+    Route::post('/add', [TicketController::class, 'store']);
+});
 
 Route::get('/qrcode', [GenerateQRCode::class, 'generate']);

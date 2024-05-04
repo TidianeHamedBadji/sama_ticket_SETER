@@ -11,7 +11,7 @@ class StoreTicketRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreTicketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'forfaits_id' => 'required|exists:forfaits,id',
+            'gares_depart' => 'required|exists:gares,id',
+            'gares_arriver' => 'required|exists:gares,id',
+            'trajets_id' => 'required|exists:trajets,id',
         ];
     }
 }

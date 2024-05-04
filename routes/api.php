@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AlerteController;
 use App\Http\Controllers\AnonceController;
+use App\Http\Controllers\GareController;
 use App\Http\Controllers\GenerateQRCode;
 use App\Http\Controllers\TrajetController;
 
@@ -54,6 +55,16 @@ Route::group([
     Route::get('/show/{anonce}', [AnonceController::class, 'show']);
     Route::put('/update/{anonce}', [AnonceController::class, 'update']);
     Route::delete('/delete/{anonce}', [AnonceController::class, 'destroy']);
+});
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'gares',
+], function () {
+    Route::get('/all', [GareController::class, 'index']);
+    Route::post('/add', [GareController::class, 'store']);
+    Route::get('/show/{gare}', [GareController::class, 'show']);
+    Route::put('/update/{gare}', [GareController::class, 'update']);
+    Route::delete('/delete/{gare}', [GareController::class, 'destroy']);
 });
 
 

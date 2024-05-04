@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gare;
-use App\Http\Requests\StoreGareRequest;
-use App\Http\Requests\UpdateGareRequest;
 
 class GareController extends Controller
 {
@@ -13,24 +11,10 @@ class GareController extends Controller
      */
     public function index()
     {
-        //
+    
+        return response()->json(Gare::all()->with('boutiques'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreGareRequest $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -40,21 +24,6 @@ class GareController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Gare $gare)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateGareRequest $request, Gare $gare)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -62,5 +31,8 @@ class GareController extends Controller
     public function destroy(Gare $gare)
     {
         //
+    }
+    public function historiqueGare(){
+
     }
 }

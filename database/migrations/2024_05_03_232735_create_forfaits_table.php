@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('forfaits', function (Blueprint $table) {
             $table->id();
-            $table->enum('type',['Standard','Exclusif','Abonnement']);
+            $table->enum('type',['Standard','Premiereclasse']);
             $table->enum('tarifs',['500','1000','1500','25OO','3500']);
-            $table->enum('classe',['Premiere Classe','Deuxième Classe']);
-            $table->enum('zone',['Zone 1','Zone 2', 'Zone 3']);
+            $table->enum('zone',['Zone1','Zone2', 'Zone3']);
             $table->timestamps();
         });
     }

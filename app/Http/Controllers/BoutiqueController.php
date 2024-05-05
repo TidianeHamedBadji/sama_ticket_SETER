@@ -14,15 +14,7 @@ class BoutiqueController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json(Boutique::all());
     }
 
     /**
@@ -30,38 +22,53 @@ class BoutiqueController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'nom' => 'required|string|max:255',
+            'description' => 'required|string'
+        ]);
 
+        $boutique = Boutique::create($request->all());
+
+        return response()->json($boutique, 201);
+    }
     /**
      * Display the specified resource.
      */
     public function show(Boutique $boutique)
     {
-        //
+        return response()->json($boutique, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Boutique $boutique)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Boutique $boutique)
+    public function update(Request $request, $boutique)
     {
-        //
+        if (!$boutique) {
+            return response()->json(["message" => "Cette boutique est introuvable."], 404);
+        }
+
+        $request->validate([
+            'nom' => 'required|string|max:255',
+            'description' => 'required|string'
+        ]);
+
+        $boutique->update(request()->all());
+
+        return response()->json("La boutique a été modifiée avec succès.",  200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Boutique $boutique)
+    public function destroy($boutique)
     {
-        //
+        $boutique = Boutique::find($boutique);
+        if (!$boutique) {
+            return response()->json(['message' => 'Boutique non trouvée'], 404);
+        }
+        $boutique->delete();
+        return response()->json(['message' => 'Boutique supprimée avec succès'], 200);
     }
 }

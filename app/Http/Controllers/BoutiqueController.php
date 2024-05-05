@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Boutique;
+use Illuminate\Http\Client\Request;
 use App\Http\Requests\StoreBoutiqueRequest;
 use App\Http\Requests\UpdateBoutiqueRequest;
 
@@ -27,7 +28,7 @@ class BoutiqueController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBoutiqueRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -51,7 +52,7 @@ class BoutiqueController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBoutiqueRequest $request, Boutique $boutique)
+    public function update(Request $request, Boutique $boutique)
     {
         //
     }

@@ -3,11 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AlerteController;
-use App\Http\Controllers\AnonceController;
 use App\Http\Controllers\GareController;
 use App\Http\Controllers\GenerateQRCode;
+use App\Http\Controllers\AlerteController;
+use App\Http\Controllers\AnonceController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\TrajetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,18 @@ Route::group([
     Route::get('/show/{gare}', [GareController::class, 'show']);
     Route::put('/update/{gare}', [GareController::class, 'update']);
     Route::delete('/delete/{gare}', [GareController::class, 'destroy']);
+});
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'trajets',
+], function () {
+    Route::get('/all', [TrajetController::class, 'index']);
+    Route::post('/add', [TrajetController::class, 'store']);
+    Route::get('/show/{id}', [TrajetController::class, 'show']);
+    Route::put('/update/{id}', [TrajetController::class, 'update']);
+    Route::delete('/delete/{id}', [TrajetController::class, 'destroy']);
 });
 
 Route::group([
